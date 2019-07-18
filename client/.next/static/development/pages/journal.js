@@ -55,24 +55,16 @@ var Layout = function Layout(props) {
     __self: this
   }, props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
     rel: "stylesheet",
-    href: "https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.core.css",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 11
-    },
-    __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
-    rel: "stylesheet",
     href: "https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 12
+      lineNumber: 10
     },
     __self: this
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Nabar__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 14
+      lineNumber: 12
     },
     __self: this
   }), props.children);
@@ -10405,7 +10397,7 @@ Tokenizer.prototype._emitPartial = function(value) {
 module.exports = Stream;
 
 var Parser = __webpack_require__(/*! ./Parser.js */ "./node_modules/htmlparser2/lib/Parser.js");
-var WritableStream = __webpack_require__(/*! readable-stream */ 1).Writable;
+var WritableStream = __webpack_require__(/*! readable-stream */ 3).Writable;
 var StringDecoder = __webpack_require__(/*! string_decoder */ "./node_modules/string_decoder/lib/string_decoder.js").StringDecoder;
 var Buffer = __webpack_require__(/*! buffer */ "./node_modules/buffer/index.js").Buffer;
 
@@ -17966,7 +17958,7 @@ function (_Component) {
 
 /***/ }),
 
-/***/ 0:
+/***/ 2:
 /*!*************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fjournal&absolutePagePath=C%3A%5CUsers%5CEthan%5COneDrive%5Cnewtnotes%5Cclient%5Cpages%5Cjournal.js ***!
   \*************************************************************************************************************************************************/
@@ -17978,7 +17970,7 @@ module.exports = __webpack_require__(/*! next-client-pages-loader?page=%2Fjourna
 
 /***/ }),
 
-/***/ 1:
+/***/ 3:
 /*!*********************************!*\
   !*** readable-stream (ignored) ***!
   \*********************************/
@@ -18000,5 +17992,5 @@ module.exports = dll_829b10deddf10e1653a8;
 
 /***/ })
 
-},[[0,"static/runtime/webpack.js"]]]);
+},[[2,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=journal.js.map
