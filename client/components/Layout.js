@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import Navbar from './Nabar'
+import MyNavbar from './MyNavbar'
+import PlusButton from '../components/PlusButton'
 
 const Layout = (props) => (
   <div>
@@ -9,9 +10,13 @@ const Layout = (props) => (
       <title>{props.title}</title>
       <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css' />
     </Head>
-    <Navbar />
-    {props.children}
+    <MyNavbar />
+    <div className='page-container'>
+      {props.children}
+      <PlusButton />
+    </div>
   </div>
+
 )
 
 export default Layout

@@ -24,12 +24,14 @@ class Journal extends Component {
       <Layout title='Newtnotes | Journal'>
         <div>
           <h1>Journal</h1>
-          {this.state.journals.map(journal => (
-            <div style={{ border: '1px solid black' }}>
-              {ReactHtmlParser(journal.journal)}
-            </div>
-          )
-          )}
+          <div className='ql-editor'>
+            {this.state.journals.map(journal => (
+              <div style={{ border: '1px solid black' }}>
+                {ReactHtmlParser(journal.journal)}
+              </div>
+            )
+            )}
+          </div>
         </div>
       </Layout>
     )
