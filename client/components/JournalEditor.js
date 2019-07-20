@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
+import dynamic from 'next/dynamic'
+const ReactQuill = dynamic(import('react-quill'), { ssr: false})
+const Quill = ReactQuill.Quill
 
 class JournalEditor extends Component {
   constructor (props) {
     super(props)
     this.state = { journal: '' }
-    if (typeof window !== 'undefined') {
-      this.ReactQuill = require('react-quill')
-    }
+    // if (typeof window !== 'undefined') {
+    //   this.ReactQuill = require('react-quill')
+    // }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.getPosition = this.getPosition.bind(this)
   }
 
   modules = {
@@ -27,13 +31,23 @@ class JournalEditor extends Component {
     'bold', 'italic', 'underline', 'strike',
     'list', 'bullet', 'indent',
     'link', 'image',
-    'align', 'color', 'background'
-    
+    'align', 'color', 'background' 
   ]
+
+  componentDidMount() {
+    console.log(Quill)
+  }
 
   handleChange (value) {
     const journal = value
     this.setState({ journal })
+  }
+
+  getPosition (event) {
+    // const { Quill } = this.ReactQuill
+    const range = Quill.getSelection()
+    console.log(range)
+    console.log('Caret at: ', event.target)
   }
 
   async handleSubmit (event) {
@@ -56,18 +70,18 @@ class JournalEditor extends Component {
   }
 
   render () {
-    const ReactQuill = this.ReactQuill
-    return typeof window !== 'undefined' && ReactQuill ? (
+    return (
       <div>
         <ReactQuill
           value={this.state.journal}
           onChange={this.handleChange}
           modules={this.modules}
           formats={this.formats}
+          onKeyUp={this.getPosition}
         />
         <button onClick={this.handleSubmit}>Save</button>
       </div>
-    ) : null
+    ) // : <h1>ReactQuill not loaded</h1>
   }
 }
 

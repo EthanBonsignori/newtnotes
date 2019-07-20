@@ -8,7 +8,6 @@ class MyNavbar extends Component {
         <Link href='/'><a>Newtnotes</a></Link>
         <Link href='/journal'><a>Journal</a></Link>
         <Link href='/contacts'><a>Contacts</a></Link>
-
       </nav>
     )
   }

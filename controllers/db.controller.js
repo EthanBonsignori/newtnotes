@@ -13,6 +13,20 @@ module.exports = {
     }
   },
 
+  findQueryContact: (req, res) => {
+    const query = req.params.query
+    console.log(query)
+    try {
+      Contact.find({ 'name': { $regex: `^${query}` } }, (err, contacts) => {
+        if (err) return res.status(400).json({ message: `${err.name} | Error retrieving saved contacts` })
+        res.status(200).json(contacts)
+        console.log(contacts)
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+
   findAllJournalEntry: (req, res) => {
     try {
       JournalEntry.find((err, entries) => {

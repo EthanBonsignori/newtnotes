@@ -11,10 +11,8 @@ const Layout = (props) => (
       <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css' />
     </Head>
     <MyNavbar />
-    <div className='page-container'>
-      {props.children}
-      <PlusButton />
-    </div>
+    {props.children}
+    <PlusButton />
   </div>
 
 )
