@@ -1,3 +1,6 @@
+import db from '../utils/db'
+import * as actions from '../actions/ContactActions'
+
 export const modules = {
   toolbar: [
     [{ 'header': [1, 2, 3, false] }],
@@ -15,7 +18,22 @@ export const modules = {
         handler: function () {
           const selection = this.quill.getSelection()
           this.quill.insertText(selection.index, '@')
-          console.log('got @ key')
+          let query = ''
+          this.quill.on('text-change', async (delta) => {
+            const change = delta.ops[1] || delta.ops[0]
+            if ('insert' in change) {
+              if (change.insert === ' ') return this.quill.off('text-change')
+              query = query + change.insert
+              const contacts = await db.nameQuery(query)
+              actions.updateContacts(contacts)
+            }
+            if ('delete' in change) {
+              if (query === '') return this.quill.off('text-change')
+              query = query.slice(0, -change.delete)
+              const contacts = await db.nameQuery(query)
+              actions.updateContacts(contacts)
+            }
+          })
         }
       }
     }

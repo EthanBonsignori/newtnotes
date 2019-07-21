@@ -1,7 +1,8 @@
 import React, { Component, useRef } from 'react'
 import dynamic from 'next/dynamic'
 const ReactQuill = dynamic(import('react-quill'), { ssr: false})
-import { modules, formats } from '../config/quill.config'
+import ContactPopup from './ContactPopup'
+import { modules, formats } from '../config/quillConfig'
 
 class JournalEditor extends Component {
   constructor (props) {
@@ -41,6 +42,7 @@ class JournalEditor extends Component {
   render () {
     return typeof window !== 'undefined' && ReactQuill ? (
       <div>
+        <ContactPopup />
         <ReactQuill
           value={this.state.journal}
           onChange={this.handleChange}
