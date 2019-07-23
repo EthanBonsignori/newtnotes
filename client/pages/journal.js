@@ -8,7 +8,7 @@ class Journal extends Component {
     this.state = { journals: [] }
   }
 
-  async componentWillMount () {
+  async componentDidMount () {
     try {
       const rawResponse = await window.fetch('http://localhost:3001/api/journal', { method: 'GET' })
       const journals = await rawResponse.json()

@@ -8,7 +8,7 @@ class Contacts extends Component {
     this.state = { contacts: [] }
   }
 
-  async componentWillMount () {
+  async componentDidMount () {
     const rawResponse = await window.fetch('http://localhost:3001/api/contact', { method: 'GET' })
     const contacts = await rawResponse.json()
     this.setState({ contacts })

@@ -26,7 +26,6 @@ class ContactStore extends EventEmitter {
 
   handleActions (action) {
     if (action.type === 'CONTACT_TAG_UPDATE') {
-      console.log(action)
       this.setContacts(action.contacts)
     }
   }
