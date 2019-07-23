@@ -10,7 +10,7 @@ class Journal extends Component {
 
   async componentWillMount () {
     try {
-      const rawResponse = await window.fetch('http://localhost:3001/journal', { method: 'GET' })
+      const rawResponse = await window.fetch('http://localhost:3001/api/journal', { method: 'GET' })
       const journals = await rawResponse.json()
       this.setState({ journals })
       console.log(this.state)

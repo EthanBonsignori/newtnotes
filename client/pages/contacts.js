@@ -9,7 +9,7 @@ class Contacts extends Component {
   }
 
   async componentWillMount () {
-    const rawResponse = await window.fetch('http://localhost:3001/contact', { method: 'GET' })
+    const rawResponse = await window.fetch('http://localhost:3001/api/contact', { method: 'GET' })
     const contacts = await rawResponse.json()
     this.setState({ contacts })
   }

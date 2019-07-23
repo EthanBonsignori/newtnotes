@@ -19,7 +19,8 @@ class ContactPopup extends Component {
   }
 
   render () {
-    return this.state.contacts ? (
+    const contacts = this.state.contacts
+    return contacts ? (
       <div className='contact-popup'>
         {this.state.contacts.map(contact => {
           console.log(contact)

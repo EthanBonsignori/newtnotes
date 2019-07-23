@@ -24,7 +24,7 @@ class JournalEditor extends Component {
     event.preventDefault()
     const newJournal = this.state
     try {
-      const rawResponse = await window.fetch('http://localhost:3001/journal', {
+      const rawResponse = await window.fetch('http://localhost:3001/api/journal', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

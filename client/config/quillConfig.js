@@ -1,5 +1,5 @@
 import db from '../utils/db'
-import * as actions from '../actions/ContactActions'
+import * as actions from '../actions/contactActions'
 
 export const modules = {
   toolbar: [

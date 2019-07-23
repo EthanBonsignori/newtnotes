@@ -1,7 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cookieSession = require('cookie-session')
+const passport = require('passport')
 const logger = require('morgan')
-const routes = require('./routes/db.routes')
+const dbRoutes = require('./routes/db.routes')
+const authRoutes = require('./routes/auth.routes')
 const app = express()
 
 // Middleware
@@ -20,14 +23,25 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use(routes)
+// Cookie-session
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  keys: [process.env.COOKIE_KEY]
+}))
+
+// Passport
+require('./config/passport.config')
+app.use(passport.initialize())
+app.use(passport.session())
+
+// Routes
+app.use('/api', dbRoutes)
+app.use('/auth', authRoutes)
 
 mongoose.connect('mongodb://localhost/newtnotesDB', {
   useCreateIndex: true,
   useNewUrlParser: true
-})
-
-mongoose.connection.once('open', () => {
+}, () => {
   console.log('Mongo connection established')
 })
 

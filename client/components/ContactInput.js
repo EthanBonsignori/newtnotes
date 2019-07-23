@@ -37,7 +37,7 @@ class ContactInput extends Component {
     event.preventDefault()
     const newContact = this.state
     try {
-      const rawResponse = await window.fetch('http://localhost:3001/contact', {
+      const rawResponse = await window.fetch('http://localhost:3001/api/contact', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
