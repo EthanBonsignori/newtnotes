@@ -6,9 +6,10 @@ const journalEntrySchema = new Schema({
     type: String,
     required: true
   },
-  updated_at: {
+  updatedAt: {
     type: Date
-  }
+  },
+  contactLinks: [{ type: Schema.Types.ObjectId, ref: 'Contact' }]
 })
 
 const JournalEntry = mongoose.model('journal', journalEntrySchema)
