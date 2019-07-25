@@ -2,19 +2,14 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 import MyNavbar from './MyNavbar'
 import PlusButton from '../components/PlusButton'
+import API from '../utils/API'
 import * as actions from '../actions/userActions'
 
 class Layout extends Component {
   async componentDidMount () {
-    try {
-      const response = await window.fetch('http://localhost:3001/auth/user', { method: 'GET' })
-      if (response.ok) {
-        const user = response.json()
-        console.log(user)
-      }
-    } catch (error) {
-      throw error
-    }
+    const user = await API.getUser()
+    // console.log(user)
+    // console.log(document.cookie)
   }
 
   render () {

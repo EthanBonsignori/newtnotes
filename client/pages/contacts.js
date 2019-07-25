@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Layout from '../components/Layout'
+import API from '../utils/API'
 
 class Contacts extends Component {
   constructor (props) {
@@ -9,8 +10,7 @@ class Contacts extends Component {
   }
 
   async componentDidMount () {
-    const rawResponse = await window.fetch('http://localhost:3001/api/contact', { method: 'GET' })
-    const contacts = await rawResponse.json()
+    const contacts = await API.getContacts()
     this.setState({ contacts })
   }
 

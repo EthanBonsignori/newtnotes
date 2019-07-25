@@ -10,6 +10,7 @@ class ContactStore extends EventEmitter {
 
   setContacts (contacts) {
     this.contacts = []
+    if (!contacts) return this.emit('change')
     contacts.map(contact => {
       this.contacts.push({
         id: contact._id,

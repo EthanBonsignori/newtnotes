@@ -1,4 +1,4 @@
-import db from '../utils/db'
+import API from '../utils/API'
 import * as actions from '../actions/contactActions'
 
 export const modules = {
@@ -24,13 +24,13 @@ export const modules = {
             if ('insert' in change) {
               if (change.insert === ' ') return this.quill.off('text-change')
               query = query + change.insert
-              const contacts = await db.nameQuery(query)
+              const contacts = await API.getContactsFromQuery(query)
               actions.updateContacts(contacts)
             }
             if ('delete' in change) {
               if (query === '') return this.quill.off('text-change')
               query = query.slice(0, -change.delete)
-              const contacts = await db.nameQuery(query)
+              const contacts = await API.getContactsFromQuery(query)
               actions.updateContacts(contacts)
             }
           })

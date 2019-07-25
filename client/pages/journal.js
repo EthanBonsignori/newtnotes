@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import Layout from '../components/Layout'
 import ReactHtmlParser from 'react-html-parser'
+import Layout from '../components/Layout'
+import API from '../utils/API'
 
 class Journal extends Component {
   constructor (props) {
@@ -9,14 +10,8 @@ class Journal extends Component {
   }
 
   async componentDidMount () {
-    try {
-      const rawResponse = await window.fetch('http://localhost:3001/api/journal', { method: 'GET' })
-      const journals = await rawResponse.json()
-      this.setState({ journals })
-      console.log(this.state)
-    } catch (err) {
-      console.log(err)
-    }
+    const journals = await API.getJournals()
+    this.setState({ journals })
   }
 
   render () {

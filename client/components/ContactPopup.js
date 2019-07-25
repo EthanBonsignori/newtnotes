@@ -23,7 +23,6 @@ class ContactPopup extends Component {
     return contacts ? (
       <div className='contact-popup'>
         {this.state.contacts.map(contact => {
-          console.log(contact)
           return (<li key={contact.id}>{contact.name}</li>)
         }
         )}
