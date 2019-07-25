@@ -2,10 +2,12 @@ const router = require('express').Router()
 const authController = require('../controllers/auth.controller')
 const passport = require('passport')
 
+router.route('/user')
+  .get(authController.getUser)
+
 router.route('/logout')
   .get(authController.logout)
 
-// auth with google
 router.route('/google')
   .get(passport.authenticate('google', { scope: ['profile'] }))
 
