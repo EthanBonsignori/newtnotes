@@ -1,6 +1,7 @@
 import React, { Component, useRef } from 'react'
 import dynamic from 'next/dynamic'
 const ReactQuill = dynamic(import('react-quill'), { ssr: false})
+import API from '../utils/API'
 import ContactPopup from './ContactPopup'
 import { modules, formats } from '../config/quillConfig'
 
@@ -23,20 +24,7 @@ class JournalEditor extends Component {
   async handleSubmit (event) {
     event.preventDefault()
     const newJournal = this.state
-    try {
-      const rawResponse = await window.fetch('http://localhost:3001/api/journal', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newJournal)
-      })
-      const content = await rawResponse.json()
-      console.log(content)
-    } catch (err) {
-      console.log(err)
-    }
+    await API.postJournal(newJournal)
   }
 
   render () {
