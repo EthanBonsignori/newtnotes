@@ -1,4 +1,4 @@
-const { Contact, JournalEntry, User } = require('../models')
+const { Contact, JournalEntry } = require('../models')
 
 module.exports = {
   findAllContact: (req, res) => {

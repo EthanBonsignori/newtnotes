@@ -1,15 +1,15 @@
 const router = require('express').Router()
-const dbController = require('../controllers/db.controller')
+const apiController = require('../controllers/api.controller')
 
 router.route('/contact')
-  .get(dbController.findAllContact)
-  .post(dbController.createContact)
+  .get(apiController.findAllContact)
+  .post(apiController.createContact)
 
 router.route('/contact/:query')
-  .get(dbController.findQueryContact)
+  .get(apiController.findQueryContact)
 
 router.route('/journal')
-  .get(dbController.findAllJournalEntry)
-  .post(dbController.createJournalEntry)
+  .get(apiController.findAllJournalEntry)
+  .post(apiController.createJournalEntry)
 
 module.exports = router
