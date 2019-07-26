@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
 import ReactHtmlParser from 'react-html-parser'
+import Link from 'next/link'
+import Tab from 'react-bootstrap/Tab'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import ListGroup from 'react-bootstrap/ListGroup'
+import Button from 'react-bootstrap/Button'
+import MdCreate from '@material-ui/icons/create'
 import Layout from '../components/Layout'
 import API from '../utils/API'
 
@@ -17,36 +24,62 @@ class Journal extends Component {
   render () {
     return (
       <Layout title='Newtnotes | Journal'>
-        <h1>Journal</h1>
-        {this.state.journal
-          ? <div className='ql-editor'>
-            <ul>
-              {this.state.journals.map(journal => (
-                <li key={journal._id} style={{ border: '1px solid black' }}>
-                  {ReactHtmlParser(journal.journal)}
-                </li>
-              )
-              )}
-            </ul>
+        {this.state.journals
+          ? <Tab.Container id='journal-tabs' defaultActiveKey='#journal1'>
+            <Row>
+              <Col sm={4}>
+                <ListGroup>
+                  {this.state.journals.map((journal, i) => (
+                    <ListGroup.Item action href={`#journal${i}`}>
+                      Journal {i}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Col>
+              <Col sm={8}>
+                <Tab.Content>
+                  {this.state.journals.map((journal, i) => (
+                    <Tab.Pane eventKey={`#journal${i}`}>
+                      <div className='ql-editor'>
+                        <div key={journal._id}>
+                          {ReactHtmlParser(journal.journal)}
+                        </div>
+                      </div>
+                    </Tab.Pane>
+                  )
+                  )}
+                </Tab.Content>
+              </Col>
+            </Row>
+          </Tab.Container>
+          : <div className='text-center mt-5'>
+            <p className='display-3'>Uh oh! No journals found.</p>
+            <p className='lead' style={{ fontSize: '3rem' }}>Try creating one below.</p>
+            <Link href='/newjournal'>
+              <Button variant='dark' className='mt-3'>
+                <MdCreate /> Create Journal
+              </Button>
+            </Link>
           </div>
-          : <h2>No Journals found</h2>
         }
-        <style jsx>{`
-          ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-          }
-
-          ul li {
-            border: 1px solid #444;
-            margin-top: -1px;
-            padding: 12px;
-          }
-        `}</style>
       </Layout>
     )
   }
 }
 
 export default Journal
+
+// ul {
+//   padding: 0;
+//   margin: 0;
+// }
+
+// ul > li {
+//   border: 1px solid #444;
+//   margin-top: -1px;
+//   padding: 12px;
+// }
+
+// .ql-editor ul > li::before {
+//   content: '';
+// }
