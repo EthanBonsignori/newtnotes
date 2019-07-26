@@ -1,4 +1,5 @@
 const { Contact, JournalEntry } = require('../models')
+const findContactLinks = require('../utils/journalParser')
 
 module.exports = {
   findAllContact: (req, res) => {
@@ -15,7 +16,6 @@ module.exports = {
 
   findQueryContact: (req, res) => {
     const query = req.params.query
-    console.log(query)
     try {
       Contact.find({ 'name': { $regex: '^' + query, $options: 'i' } }, 'name', { limit: 5 }, (err, contacts) => {
         if (err) return res.status(400).json({ message: `${err.name} | Error retrieving saved contacts` })
@@ -40,7 +40,6 @@ module.exports = {
 
   createContact: async (req, res) => {
     const newContact = new Contact(req.body)
-    console.log(req.body)
     try {
       const saveContact = await newContact.save()
       console.log(saveContact)
@@ -53,10 +52,13 @@ module.exports = {
   },
 
   createJournalEntry: async (req, res) => {
-    const newEntry = new JournalEntry(req.body)
+    const contactLinks = await findContactLinks(req.body.journal)
+    const newEntry = new JournalEntry({
+      journal: req.body.journal,
+      contactLinks
+    })
     try {
-      const saveEntry = await newEntry.save()
-      console.log(saveEntry)
+      newEntry.save()
     } catch (err) {
       console.log(err)
       res.status(400).json({ err: err.message })
