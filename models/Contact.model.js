@@ -15,7 +15,7 @@ const contactSchema = new Schema({
   email: {
     type: String
   },
-  journalLinks: [{ type: Schema.Types.ObjectId, ref: 'JournalEntry' }]
+  journalLinks: [{ type: Schema.Types.ObjectId, ref: 'Journal' }]
 })
 
 const Contact = mongoose.model('Contact', contactSchema)

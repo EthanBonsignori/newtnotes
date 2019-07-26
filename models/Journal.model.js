@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const journalEntrySchema = new Schema({
+const journalSchema = new Schema({
   journal: {
     type: String,
     required: true
@@ -12,6 +12,6 @@ const journalEntrySchema = new Schema({
   contactLinks: [{ type: Schema.Types.ObjectId, ref: 'Contact' }]
 })
 
-const JournalEntry = mongoose.model('journal', journalEntrySchema)
+const Journal = mongoose.model('journal', journalSchema)
 
-module.exports = JournalEntry
+module.exports = Journal

@@ -1,9 +1,9 @@
 const Contact = require('./Contact.model')
-const JournalEntry = require('./JounalEntry.model')
+const Journal = require('./Journal.model')
 const User = require('./User.model')
 
 module.exports = {
   Contact,
-  JournalEntry,
+  Journal,
   User
 }

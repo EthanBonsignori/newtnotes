@@ -1,15 +1,15 @@
 const router = require('express').Router()
-const apiController = require('../controllers/api.controller')
+const { contact, journal } = require('../controllers')
 
 router.route('/contact')
-  .get(apiController.findAllContact)
-  .post(apiController.createContact)
+  .get(contact.findAll)
+  .post(contact.create)
 
 router.route('/contact/:query')
-  .get(apiController.findQueryContact)
+  .get(contact.findQueryContact)
 
 router.route('/journal')
-  .get(apiController.findAllJournalEntry)
-  .post(apiController.createJournalEntry)
+  .get(journal.findAll)
+  .post(journal.create)
 
 module.exports = router
