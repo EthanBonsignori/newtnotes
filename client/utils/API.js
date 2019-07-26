@@ -1,14 +1,13 @@
 const url = 'http://localhost:3001'
-const fetch = window.fetch
 
 const API = {
   getUser: async () => {
     try {
-      const response = await fetch(`${url}/auth/user`, { method: 'GET' })
+      const response = await window.fetch(`${url}/auth/user`, { method: 'GET' })
       if (response.ok) {
         const user = await response.json()
         return user
-      } else return { error: 'Error retriving user' }
+      } else return { error: 'error retriving user' }
     } catch (error) {
       console.log(error)
     }
@@ -16,7 +15,7 @@ const API = {
 
   getJournals: async () => {
     try {
-      const response = await fetch(`${url}/api/journal`, { method: 'GET' })
+      const response = await window.fetch(`${url}/api/journal`, { method: 'GET' })
       if (response.ok) {
         const journals = await response.json()
         return journals
@@ -28,7 +27,7 @@ const API = {
 
   postJournal: async (journal) => {
     try {
-      const response = await fetch(`${url}/api/journal`, {
+      const response = await window.fetch(`${url}/api/journal`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -47,7 +46,7 @@ const API = {
 
   getContacts: async () => {
     try {
-      const response = await fetch(`${url}/api/contact`, { method: 'GET' })
+      const response = await window.fetch(`${url}/api/contact`, { method: 'GET' })
       if (response.ok) {
         const contacts = await response.json()
         return contacts
@@ -60,7 +59,7 @@ const API = {
   getContactsFromQuery: async (query) => {
     try {
       if (query === '') return
-      const response = await fetch(`${url}/api/contact/${query}`, { method: 'GET' })
+      const response = await window.fetch(`${url}/api/contact/${query}`, { method: 'GET' })
       if (response.ok) {
         const contacts = await response.json()
         return contacts

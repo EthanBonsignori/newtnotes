@@ -21,7 +21,7 @@ class Journal extends Component {
           <h1>Journal</h1>
           <div className='ql-editor'>
             {this.state.journals.map(journal => (
-              <div style={{ border: '1px solid black' }}>
+              <div key={journal._id} style={{ border: '1px solid black' }}>
                 {ReactHtmlParser(journal.journal)}
               </div>
             )

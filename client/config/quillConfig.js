@@ -25,13 +25,13 @@ export const modules = {
               if (change.insert === ' ') return this.quill.off('text-change')
               query = query + change.insert
               const contacts = await API.getContactsFromQuery(query)
-              actions.updateContacts(contacts)
+              actions.contactTagUpdate(contacts)
             }
             if ('delete' in change) {
               if (query === '') return this.quill.off('text-change')
               query = query.slice(0, -change.delete)
               const contacts = await API.getContactsFromQuery(query)
-              actions.updateContacts(contacts)
+              actions.contactTagUpdate(contacts)
             }
           })
         }

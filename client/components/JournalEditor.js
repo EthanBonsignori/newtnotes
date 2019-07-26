@@ -23,8 +23,8 @@ class JournalEditor extends Component {
 
   async handleSubmit (event) {
     event.preventDefault()
-    const newJournal = this.state
-    await API.postJournal(newJournal)
+    const journal = JSON.stringify(this.state)
+    API.postJournal(journal)
   }
 
   render () {
