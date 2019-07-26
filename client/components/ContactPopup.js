@@ -10,7 +10,7 @@ class ContactPopup extends Component {
     }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     contactStore.on('change', () => {
       this.setState({
         contacts: contactStore.getAll()
@@ -29,7 +29,7 @@ class ContactPopup extends Component {
         <style jsx>{`
           .contact-popup {
             position: fixed;
-            top: 10px;
+            top: 50px;
             left: 50%;
             transform: translate(-50%, 0);
           }
