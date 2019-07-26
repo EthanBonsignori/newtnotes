@@ -17,17 +17,33 @@ class Journal extends Component {
   render () {
     return (
       <Layout title='Newtnotes | Journal'>
-        <div>
-          <h1>Journal</h1>
-          <div className='ql-editor'>
-            {this.state.journals.map(journal => (
-              <div key={journal._id} style={{ border: '1px solid black' }}>
-                {ReactHtmlParser(journal.journal)}
-              </div>
-            )
-            )}
+        <h1>Journal</h1>
+        {this.state.journal
+          ? <div className='ql-editor'>
+            <ul>
+              {this.state.journals.map(journal => (
+                <li key={journal._id} style={{ border: '1px solid black' }}>
+                  {ReactHtmlParser(journal.journal)}
+                </li>
+              )
+              )}
+            </ul>
           </div>
-        </div>
+          : <h2>No Journals found</h2>
+        }
+        <style jsx>{`
+          ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+          }
+
+          ul li {
+            border: 1px solid #444;
+            margin-top: -1px;
+            padding: 12px;
+          }
+        `}</style>
       </Layout>
     )
   }

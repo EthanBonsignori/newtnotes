@@ -20,7 +20,7 @@ class Contacts extends Component {
         <div>
           <h1>Contacts</h1>
           {this.state.contacts.map((contact, i) => (
-            <div key={i} style={{ border: '1px solid black' }}>
+            <div key={i} style={{ border: '1px solid black', marginTop: '-1px' }}>
               <p>{contact.name}</p>
               <p>{contact.nickname || ''}</p>
               <p>{contact.phone}</p>
