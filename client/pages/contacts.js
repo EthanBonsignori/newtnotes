@@ -3,8 +3,9 @@ import Link from 'next/link'
 import Button from 'react-bootstrap/Button'
 import MdPerson from '@material-ui/icons/person'
 import Layout from '../components/Layout'
+import ContactLetterHead from '../components/ContactLetterHead'
+import Contact from '../components/Contact'
 import API from '../utils/API'
-import groupContacts from '../utils/groupContacts'
 
 class Contacts extends Component {
   constructor (props) {
@@ -19,26 +20,26 @@ class Contacts extends Component {
   async componentDidMount () {
     const contacts = await API.getContacts()
     this.setState({ contacts })
-    const groupedContacts = groupContacts(this.state.contacts)
-    console.log(groupContacts)
-    this.setState({ groupedContacts })
+    // const groupedContacts = await groupContacts(this.state.contacts)
+    // this.setState({ groupedContacts })
   }
 
   render () {
+    let currentLetter = ''
+    const contactsView = []
+    const contacts = this.state.contacts
+    for (const contact in contacts) {
+      const letter = contacts[contact].name[0].toUpperCase()
+      if (letter !== currentLetter) {
+        currentLetter = letter
+        contactsView.push(<ContactLetterHead key={letter} letter={letter} />)
+      }
+      contactsView.push(<Contact contact={contacts[contact]} />)
+    }
     return (
       <Layout title='Newtnotes | Contacts'>
         {this.state.contacts
-          ? <div>
-            {console.log(this.state.contacts)}
-            {this.state.contacts.map((contact, i) => (
-              <div key={contact._id} style={{ border: '1px solid black', marginTop: '-1px' }}>
-                <p>{contact.name}</p>
-                <p>{contact.nickname || ''}</p>
-                <p>{contact.phone}</p>
-                <p>{contact.email}</p>
-              </div>
-            ))}
-          </div>
+          ? <div>{ contactsView }</div>
           : <div className='text-center mt-5'>
             <p className='display-3'>Uh oh! No contacts found.</p>
             <p className='lead' style={{ fontSize: '3rem' }}>Try creating one below.</p>
