@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
+import Container from 'react-bootstrap/Container'
 import MyNavbar from './MyNavbar'
 import PlusButton from '../components/PlusButton'
 import API from '../utils/API'
@@ -20,9 +21,14 @@ class Layout extends Component {
           <meta charSet='utf-8' />
           <title>{this.props.title}</title>
           <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css' />
+          <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' />
         </Head>
         <MyNavbar />
-        {this.props.children}
+        <Container>
+          <div className='mt-5'>
+            {this.props.children}
+          </div>
+        </Container>
         <PlusButton />
       </div>
     )

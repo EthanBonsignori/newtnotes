@@ -7,7 +7,7 @@ const contact = {
         if (!contacts) return res.status(404).json({ message: 'No saved contacts found.' })
         if (err) return res.status(400).json({ message: `${err.name} | Error retrieving saved contacts` })
         res.status(200).json(contacts)
-      })
+      }).sort({ name: 1 })
     } catch (err) {
       console.log(err)
     }
