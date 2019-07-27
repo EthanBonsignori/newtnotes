@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class ContactLetterHead extends Component {
   render () {
     return (
-      <div>
+      <div key={this.props.letter}>
         <p className='lead'>
           <b>{this.props.letter}</b>
         </p>
