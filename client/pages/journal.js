@@ -30,7 +30,7 @@ class Journal extends Component {
               <Col sm={4}>
                 <ListGroup>
                   {this.state.journals.map((journal, i) => (
-                    <ListGroup.Item action href={`#journal${i}`}>
+                    <ListGroup.Item action key={journal._id} href={`#journal${i}`}>
                       Journal {i}
                     </ListGroup.Item>
                   ))}
@@ -39,9 +39,9 @@ class Journal extends Component {
               <Col sm={8}>
                 <Tab.Content>
                   {this.state.journals.map((journal, i) => (
-                    <Tab.Pane eventKey={`#journal${i}`}>
+                    <Tab.Pane key={journal._id} eventKey={`#journal${i}`}>
                       <div className='ql-editor'>
-                        <div key={journal._id}>
+                        <div>
                           {ReactHtmlParser(journal.journal)}
                         </div>
                       </div>
