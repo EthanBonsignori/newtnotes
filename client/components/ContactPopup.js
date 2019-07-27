@@ -20,26 +20,50 @@ class ContactPopup extends Component {
 
   render () {
     const contacts = this.state.contacts
+    console.log(contacts)
     return contacts ? (
-      <div className='contact-popup'>
+      <div>
         {this.state.contacts.map(contact => {
-          return (<li key={contact.id}>{contact.name}</li>)
+          return (
+            <div key={contact.id} className='contact-popup'>
+              <div className='center'>
+                <div className='profile-pic'>
+                  <img src={contact.picture} alt='profile-pic' />
+                </div>
+                <span className='contact-name'>
+                  {contact.name}
+                </span>
+              </div>
+            </div>
+          )
         }
         )}
         <style jsx>{`
           .contact-popup {
-            position: fixed;
-            top: 50px;
-            left: 50%;
-            transform: translate(-50%, 0);
+            display: inline-block;
+            margin: 1px;
+            height: 30px;
+            width: 200px;
+            background-color: #444444;
+            color: #fff;
+            border-radius: 30px;
+          }
+          .center {
+            position: absolute;
+          }
+          .profile-pic {
+            display: inline;
+          }
+          .profile-pic > img {
+            width: 30px;
+            height: 30px;
+            border-radius: 30px;
+            border: 1px solid #CFD0D2;
+          }
+          .contact-name {
+            margin-left: 3px;
           }
 
-          .contact-popup li {
-            list-style: none;
-            border: 1px solid black;
-            padding: 5px;
-            background-color: #9999;
-          }
         `}</style>
       </div>
     ) : null

@@ -12,9 +12,11 @@ class ContactStore extends EventEmitter {
     this.contacts = []
     if (!contacts) return this.emit('change')
     contacts.map(contact => {
+      console.log(contact)
       this.contacts.push({
         id: contact._id,
-        name: contact.name
+        name: contact.name,
+        picture: contact.profilePicture
       })
     })
 

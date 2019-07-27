@@ -6,7 +6,7 @@ router.route('/contact')
   .post(contact.create)
 
 router.route('/contact/:query')
-  .get(contact.findQuery)
+  .get(contact.findByQuery)
 
 router.route('/journal')
   .get(journal.findAll)

@@ -13,10 +13,10 @@ const contact = {
     }
   },
 
-  findQuery: (req, res) => {
+  findByQuery: (req, res) => {
     const query = req.params.query
     try {
-      Contact.find({ 'name': { $regex: '^' + query, $options: 'i' } }, 'name', { limit: 5 }, (err, contacts) => {
+      Contact.find({ 'name': { $regex: '^' + query, $options: 'i' } }, ['name', 'profilePicture'], { limit: 5 }, (err, contacts) => {
         if (err) return res.status(400).json({ message: `${err.name} | Error retrieving saved contacts` })
         res.status(200).json(contacts)
       })

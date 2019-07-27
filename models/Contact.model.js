@@ -15,6 +15,10 @@ const contactSchema = new Schema({
   email: {
     type: String
   },
+  profilePicture: {
+    type: String,
+    default: 'https://imgur.com/U2lpZIk'
+  },
   journalLinks: [{ type: Schema.Types.ObjectId, ref: 'Journal' }]
 })
 
