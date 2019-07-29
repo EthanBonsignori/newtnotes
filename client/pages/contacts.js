@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
-import Highlighter from 'react-highlight-words'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
@@ -67,12 +66,7 @@ class Contacts extends Component {
                 onChange={this.handleChangeSearch}
               />
             </InputGroup>
-            {/* <Highlighter
-              searchWords={[this.state.search]}
-              textToHighlight={contactNames}
-              autoEscape> */}
             { contactsView }
-            {/* </Highlighter> */}
           </div>
           : <div className='text-center mt-5'>
             <p className='display-3'>Uh oh! No contacts found.</p>
