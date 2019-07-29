@@ -6,3 +6,10 @@ export function contactTagUpdate (contacts) {
     contacts
   })
 }
+
+export function contactTagLetters (letters) {
+  dispatcher.dispatch({
+    type: 'CONTACT_TAG_LETTERS',
+    letters
+  })
+}
