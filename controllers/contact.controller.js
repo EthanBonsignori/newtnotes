@@ -27,8 +27,6 @@ const contact = {
 
   create: async (req, res) => {
     const newContact = new Contact(req.body)
-    newContact.profilePicture.data = fs.readFileSync(req.files.userPhoto.path)
-    newContact.profilePicture.contentType = 'image/png'
     try {
       const saveContact = await newContact.save()
       res.status(200).json(saveContact)
