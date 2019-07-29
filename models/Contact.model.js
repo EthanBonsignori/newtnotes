@@ -17,7 +17,7 @@ const contactSchema = new Schema({
   },
   profilePicture: {
     type: String,
-    default: 'https://imgur.com/U2lpZIk'
+    default: 'https://i.imgur.com/U2lpZIk.jpg'
   },
   journalLinks: [{ type: Schema.Types.ObjectId, ref: 'Journal' }]
 })

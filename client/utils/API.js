@@ -56,7 +56,7 @@ const API = {
     }
   },
 
-  getContactsFromQuery: async (query) => {
+  getContactsByQuery: async (query) => {
     try {
       if (query === '') return
       const response = await window.fetch(`${url}/api/contact/${query}`, { method: 'GET' })

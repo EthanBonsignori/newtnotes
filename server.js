@@ -1,7 +1,6 @@
 const express = require('express')
+const session = require('express-session')
 const mongoose = require('mongoose')
-const cookieSession = require('cookie-session')
-const passport = require('passport')
 const logger = require('morgan')
 const apiRoutes = require('./routes/api.routes')
 const authRoutes = require('./routes/auth.routes')
@@ -17,17 +16,10 @@ app.use((req, res, next) => {
   next()
 })
 
-// Cookie-session
-app.use(cookieSession({
-  name: 'Newtnotes User',
-  keys: [process.env.COOKIE_KEY],
-  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-}))
-
 // Passport
+const passport = require('./config/passport.config')()
 app.use(passport.initialize())
 app.use(passport.session())
-require('./config/passport.config')
 
 // Routes
 app.use('/api', apiRoutes)

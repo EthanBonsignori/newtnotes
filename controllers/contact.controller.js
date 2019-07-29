@@ -16,7 +16,7 @@ const contact = {
   findByQuery: (req, res) => {
     const query = req.params.query
     try {
-      Contact.find({ 'name': { $regex: '^' + query, $options: 'i' } }, ['name', 'profilePicture'], { limit: 5 }, (err, contacts) => {
+      Contact.find({ 'name': { $regex: '^' + query, $options: 'i' } }, ['name', 'profilePicture'], { limit: 4 }, (err, contacts) => {
         if (err) return res.status(400).json({ message: `${err.name} | Error retrieving saved contacts` })
         res.status(200).json(contacts)
       })
@@ -27,9 +27,10 @@ const contact = {
 
   create: async (req, res) => {
     const newContact = new Contact(req.body)
+    newContact.profilePicture.data = fs.readFileSync(req.files.userPhoto.path)
+    newContact.profilePicture.contentType = 'image/png'
     try {
       const saveContact = await newContact.save()
-      console.log(saveContact)
       res.status(200).json(saveContact)
     } catch (err) {
       console.log(err)
