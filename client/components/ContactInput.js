@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
+import moment from 'moment'
 import isImageUrl from 'is-image-url'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
@@ -15,12 +16,15 @@ import MdHome from '@material-ui/icons/Home'
 import MdWork from '@material-ui/icons/Work'
 import MdPeople from '@material-ui/icons/People'
 import MdNotes from '@material-ui/icons/Notes'
+import contactStore from '../stores/contactStore'
 import API from '../utils/API'
+import * as actions from '../actions/contactActions'
 
 class ContactInput extends Component {
   constructor (props) {
     super(props)
     this.initalState = {
+      _id: '',
       // Image
       imageUrl: 'https://i.imgur.com/U2lpZIk.jpg',
       imageUrlPlaceholder: 'https://i.imgur.com/U2lpZIk.jpg',
@@ -49,11 +53,50 @@ class ContactInput extends Component {
       address: '',
       work: '',
       relationship: '',
-      birthday: '',
+      birthday: undefined,
       notes: ''
     }
 
     this.state = this.initalState
+    this.imageInput = React.createRef()
+  }
+
+  componentDidMount () {
+    const contact = contactStore.getContact()
+    if (!contact) return
+    if (Object.entries(contact).length !== 0 && contact.constructor === Object) {
+      const { _id, imageUrl, prefix, firstName, middleName, lastName, nickname, suffix, email, phone, facebook, twitter, instagram, linkedin, address, work, relationship, notes } = contact
+      let birthday = contact.birthday
+      if (birthday) birthday = moment(birthday).format('YYYY-MM-DD')
+      if (prefix) this.setState({ addPrefix: true })
+      if (suffix) this.setState({ addSuffix: true })
+      this.imageInput.current.value = imageUrl
+      this.setState({
+        _id,
+        imageUrl,
+        prefix,
+        firstName,
+        middleName,
+        lastName,
+        nickname,
+        suffix,
+        email,
+        phone,
+        facebook,
+        twitter,
+        instagram,
+        linkedin,
+        address,
+        work,
+        relationship,
+        birthday,
+        notes
+      })
+    }
+  }
+
+  componentWillUnmount () {
+    actions.contactInputUnmount()
   }
 
   checkImageUrl = () => {
@@ -98,13 +141,16 @@ class ContactInput extends Component {
     if (this.state.invalidImageUrl) this.setState({ imageUrl: imageUrlPlaceholder })
     if (this.state.firstName === '') return this.setState({ invalidName: true })
     const name = this.createFullName()
-    const { imageUrl, firstName, lastName, nickname, prefix, email, phone, facebook, twitter, instagram, linkedin, address, work, relationship, birthday, notes } = this.state
+    const { _id, imageUrl, firstName, middleName, lastName, nickname, prefix, suffix, email, phone, facebook, twitter, instagram, linkedin, address, work, relationship, birthday, notes } = this.state
     const contact = {
+      _id,
       name,
       prefix,
       imageUrl,
       firstName,
+      middleName,
       lastName,
+      suffix,
       nickname,
       email,
       phone,
@@ -118,7 +164,11 @@ class ContactInput extends Component {
       birthday,
       notes
     }
-    API.postContact(contact)
+    if (this.state._id) API.putContact(contact)
+    else {
+      delete contact._id
+      API.postContact(contact)
+    }
     this.setState(() => this.initalState)
     this.setState({ imageUrl: 'https://i.imgur.com/U2lpZIk.jpg' })
     Router.push('/contacts')
@@ -148,12 +198,13 @@ class ContactInput extends Component {
                   type='text'
                   onBlur={this.checkImageUrl}
                   onChange={this.handleImageChange}
+                  ref={this.imageInput}
                   placeholder='Image URL*' />
               </InputGroup>
             </Form.Group>
           </Form.Row>
           <div className='section-helper'>
-            <span className='text-muted'>Must be a direct image URL</span>
+            <span className='text-muted'><sup>*</sup>Must be a direct image URL</span>
           </div>
         </section>
 
@@ -429,22 +480,6 @@ class ContactInput extends Component {
               left: 50%;
               transform: translate(-50%, 0);
               top: 40%;
-            }
-            .section-border {
-              position: relative;
-              padding: 30px;
-              margin: 2.5rem 0;
-              border: 2px solid #CFD0D2;
-              border-radius: 5px;
-            }
-            .section-title {
-              position: absolute;
-              top: -17px;
-              left: 50%;
-              transform: translate(-50%, 0);
-              color: #6C757D;
-              background-color: #fff;
-              padding: 0 15px;
             }
             .section-helper {
               text-align: right;
