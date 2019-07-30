@@ -11,6 +11,7 @@ const contactSchema = new Schema({
   prefix: String,
   suffix: String,
   firstName: String,
+  middleName: String,
   lastName: String,
   nickname: String,
   email: String,
@@ -24,7 +25,7 @@ const contactSchema = new Schema({
   relationship: String,
   birthday: Date,
   notes: String,
-  journalLinks: [{ type: Schema.Types.ObjectId, ref: 'Journal' }]
+  journalLinks: [{ type: Schema.Types.ObjectId, ref: 'journal' }]
 })
 
 const Contact = mongoose.model('Contact', contactSchema)
