@@ -45,18 +45,10 @@ class ContactPopup extends Component {
               className='contact-popup'
               onClick={() => { this.handleClick(contact.name) }}
             >
-              <div
-                data-name={contact.name}
-                className='profile-pic-frame'>
-                <img
-                  data-name={contact.name}
-                  className='profile-pic'
-                  src={contact.picture}
-                  alt='profile-pic' />
+              <div className='contact-pic-wrapper'>
+                <img className='contact-pic' src={contact.picture} alt='contact-pic' />
               </div>
-              <span
-                data-name={contact.name}
-                className='contact-name'>
+              <span className='contact-name'>
                 {contact.name}
               </span>
             </div>
@@ -78,18 +70,15 @@ class ContactPopup extends Component {
             background-color: #555555;
             cursor: pointer;
           }
-          .profile-pic-frame {
+          .contact-pic-wrapper {
             display: inline-block;
-            height: 35px;
+            height: 30px;
             width: 30px;
+            border: none;
           }
-          .profile-pic {
-            vertical-align: middle;
-            max-width: 30px;
-            max-height: 30px;
-            border-radius: 30px;
+          .contact-pic {
+            margin-top: 2.3px;
             margin-left: 2px;
-            margin-top: 2.5px;
           }
           .contact-name {
             display: inline-block;

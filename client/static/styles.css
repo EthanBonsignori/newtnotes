@@ -1,0 +1,24 @@
+.ql-container {
+  height: 65vh !important;
+}
+.ql-container.ql-snow {
+  height: 65vh !important;
+}
+.text-center-global {
+  text-align: center;
+}
+div.center-flex {
+  display: flex;
+  justify-content: center;
+}
+div.contact-pic-wrapper {
+  border-radius: 50%;
+  border: 1px solid #CFD0D2;
+}
+img.contact-pic {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+}
