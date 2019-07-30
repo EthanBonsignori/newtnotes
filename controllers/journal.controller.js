@@ -1,4 +1,4 @@
-const { Journal } = require('../models')
+const { Journal, Contact } = require('../models')
 const findContactLinks = require('../utils/journalParser')
 
 const journal = {
@@ -16,12 +16,17 @@ const journal = {
 
   create: async (req, res) => {
     const contactLinks = await findContactLinks(req.body.journal)
-    const newEntry = new Journal({
+    const newJournal = new Journal({
       journal: req.body.journal,
       contactLinks
     })
     try {
-      newEntry.save()
+      newJournal.save(async (err, journal) => {
+        if (err) return console.log(err)
+        Contact.updateMany({ _id: { $in: contactLinks } }, { $push: { journalLinks: journal._id } }, { multi: true }, (err, contacts) => {
+          if (err) return console.log(err)
+        })
+      })
     } catch (err) {
       console.log(err)
       res.status(400).json({ err: err.message })
