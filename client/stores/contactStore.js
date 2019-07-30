@@ -16,7 +16,7 @@ class ContactStore extends EventEmitter {
       this.contacts.push({
         id: contact._id,
         name: contact.name,
-        picture: contact.profilePicture
+        picture: contact.imageUrl
       })
     })
     this.emit('contact_change')

@@ -3,7 +3,6 @@ import ContactInput from '../components/ContactInput'
 
 const NewContact = () => (
   <Layout title='Newtnotes | New Contact'>
-    <h1>New Contact</h1>
     <ContactInput />
   </Layout>
 )
