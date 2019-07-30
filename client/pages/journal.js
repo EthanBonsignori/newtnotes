@@ -24,7 +24,7 @@ class Journal extends Component {
   render () {
     return (
       <Layout title='Newtnotes | Journal'>
-        {this.state.journals
+        {this.state.journals.length
           ? <Tab.Container id='journal-tabs' defaultActiveKey='#journal1'>
             <Row>
               <Col sm={4}>
@@ -68,18 +68,3 @@ class Journal extends Component {
 }
 
 export default Journal
-
-// ul {
-//   padding: 0;
-//   margin: 0;
-// }
-
-// ul > li {
-//   border: 1px solid #444;
-//   margin-top: -1px;
-//   padding: 12px;
-// }
-
-// .ql-editor ul > li::before {
-//   content: '';
-// }

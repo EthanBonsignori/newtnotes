@@ -7,7 +7,7 @@ const API = {
       if (response.ok) {
         const user = await response.json()
         return user
-      } else return { error: 'error retriving user' }
+      } else console.log(response)
     } catch (error) {
       console.log(error)
     }
@@ -19,7 +19,7 @@ const API = {
       if (response.ok) {
         const journals = await response.json()
         return journals
-      } else return { error: 'error retrieving contacts' }
+      } else console.log(response)
     } catch (error) {
       console.log(error)
     }
@@ -44,13 +44,25 @@ const API = {
     }
   },
 
+  getContact: async (id) => {
+    try {
+      const response = await window.fetch(`${url}/api/contact/${id}`, { method: 'GET' })
+      if (response.ok) {
+        const contact = await response.json()
+        return contact
+      } else console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
   getContacts: async () => {
     try {
       const response = await window.fetch(`${url}/api/contact`, { method: 'GET' })
       if (response.ok) {
         const contacts = await response.json()
         return contacts
-      } else return { error: 'error retrieving contacts' }
+      } else console.log(response)
     } catch (error) {
       console.log(error)
     }
@@ -59,11 +71,11 @@ const API = {
   getContactsByQuery: async (query) => {
     try {
       if (query === '') return
-      const response = await window.fetch(`${url}/api/contact/${query}`, { method: 'GET' })
+      const response = await window.fetch(`${url}/api/contact/query/${query}`, { method: 'GET' })
       if (response.ok) {
         const contacts = await response.json()
         return contacts
-      } else return { error: 'error retrieving contacts based on query' }
+      } else console.log(response)
     } catch (error) {
       console.log(error)
     }
@@ -73,6 +85,25 @@ const API = {
     try {
       const response = await window.fetch(`${url}/api/contact`, {
         method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contact)
+      })
+      if (response.ok) {
+        const content = await response.json()
+        console.log(content)
+      } else console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  putContact: async (contact) => {
+    try {
+      const response = await window.fetch(`${url}/api/contact/${contact._id}`, {
+        method: 'PUT',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
