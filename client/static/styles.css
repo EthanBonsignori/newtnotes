@@ -22,3 +22,20 @@ img.contact-pic {
   overflow: hidden;
   border-radius: 50%;
 }
+
+.section-border {
+  position: relative;
+  padding: 30px;
+  margin: 2.5rem 0;
+  border: 2px solid #CFD0D2;
+  border-radius: 5px;
+}
+.section-title {
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: #6C757D;
+  background-color: #fff;
+  padding: 0 15px;
+}
