@@ -5,7 +5,11 @@ router.route('/contact')
   .get(contact.findAll)
   .post(contact.create)
 
-router.route('/contact/:query')
+router.route('/contact/:id')
+  .get(contact.findOne)
+  .put(contact.update)
+
+router.route('/contact/query/:query')
   .get(contact.findByQuery)
 
 router.route('/journal')
