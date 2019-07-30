@@ -13,3 +13,16 @@ export function contactTagLetters (letters) {
     letters
   })
 }
+
+export function contactModalOpen (contact) {
+  dispatcher.dispatch({
+    type: 'CONTACT_MODAL_OPEN',
+    contact
+  })
+}
+
+export function contactInputUnmount () {
+  dispatcher.dispatch({
+    type: 'CONTACT_INPUT_UNMOUNT'
+  })
+}
