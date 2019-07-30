@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
+import Modal from 'react-bootstrap/Modal'
 import MdPerson from '@material-ui/icons/person'
 import MdSearch from '@material-ui/icons/search'
 import Layout from '../components/Layout'
@@ -16,10 +17,13 @@ class Contacts extends Component {
 
     this.state = {
       contacts: [],
-      search: ''
+      search: '',
+      contact: undefined,
+      modal: false
     }
 
     this.handleChangeSearch = this.handleChangeSearch.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
   }
 
   async componentDidMount () {
@@ -29,6 +33,13 @@ class Contacts extends Component {
 
   handleChangeSearch (event) {
     this.setState({ search: event.target.value.toLowerCase() })
+  }
+
+  toggleModal (contact) {
+    this.setState(prevState => ({
+      modal: !prevState.modal,
+      contact
+    }))
   }
 
   render () {
@@ -45,7 +56,7 @@ class Contacts extends Component {
           currentLetter = letter
           contactsView.push(<ContactLetterHead key={letter} letter={letter} />)
         }
-        contactsView.push(<Contact key={contact._id} contact={contact} />)
+        contactsView.push(<Contact key={contact._id} contact={contact} toggleModal={this.toggleModal.bind(this)} />)
       }
     }
     contactNames = contactNames.join(' ')
@@ -78,6 +89,45 @@ class Contacts extends Component {
             </Link>
           </div>
         }
+        {this.state.contact
+          ? <Modal
+            show={this.state.modal}
+            onHide={this.toggleModal}
+            size='lg'
+            centered>
+            <Modal.Header closeButton>
+            </Modal.Header>
+            <Modal.Body>
+              <div className='center-flex'>
+                <div className='contact-pic-wrapper'>
+                  <img className='contact-pic' src={this.state.contact.imageUrl} alt='contact-pic' />
+                </div>
+              </div>
+              <div className='text-center'>
+                <span className='lead name'>{this.state.contact.name}</span>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant='success'>Edit</Button>
+              <Button variant='secondary' onClick={this.toggleModal}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+          : null}
+        <style jsx>{`
+          .center-flex {
+            display: flex;
+            justify-content: center;
+          }
+          .contact-pic-wrapper {
+            border: none;
+            text-align: center;
+            width: 150px;
+            height: 150px;
+          }
+          .name {
+            font-size: 2rem;
+          }
+        `}</style>
       </Layout>
     )
   }
