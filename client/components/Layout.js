@@ -19,6 +19,7 @@ class Layout extends Component {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta charSet='utf-8' />
           <title>{this.props.title}</title>
+          <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
           <link rel='stylesheet' href='/static/styles.css' />
           <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css' />
           <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' />
