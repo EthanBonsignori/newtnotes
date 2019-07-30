@@ -6,6 +6,7 @@ const journalSchema = new Schema({
     type: String,
     required: true
   },
+  title: String,
   createdAt: {
     type: Date,
     default: Date.now()
@@ -13,7 +14,7 @@ const journalSchema = new Schema({
   updatedAt: {
     type: Date
   },
-  contactLinks: [{ type: Schema.Types.ObjectId, ref: 'Contact' }]
+  contactLinks: [{ type: Schema.Types.ObjectId, ref: 'contact' }]
 })
 
 const Journal = mongoose.model('journal', journalSchema)
