@@ -7,6 +7,7 @@ class ContactStore extends EventEmitter {
 
     this.contacts = []
     this.letters = ''
+    this.contact = undefined
   }
 
   setContacts (contacts) {
@@ -27,6 +28,15 @@ class ContactStore extends EventEmitter {
     this.emit('letters_change')
   }
 
+  setContact (contact) {
+    this.contact = contact
+    this.emit('contact_modal')
+  }
+
+  resetContact () {
+    this.contact = {}
+  }
+
   getContacts () {
     return this.contacts
   }
@@ -35,12 +45,20 @@ class ContactStore extends EventEmitter {
     return this.letters
   }
 
+  getContact () {
+    return this.contact
+  }
+
   handleActions (action) {
     switch (action.type) {
       case 'CONTACT_TAG_LETTERS':
         return this.setLetters(action.letters)
       case 'CONTACT_TAG_UPDATE':
         return this.setContacts(action.contacts)
+      case 'CONTACT_MODAL_OPEN':
+        return this.setContact(action.contact)
+      case 'CONTACT_INPUT_UNMOUNT':
+        return this.resetContact()
     }
   }
 }
