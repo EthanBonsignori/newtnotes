@@ -67,6 +67,25 @@ const API = {
     } catch (error) {
       console.log(error)
     }
+  },
+
+  postContact: async (contact) => {
+    try {
+      const response = await window.fetch(`${url}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contact)
+      })
+      if (response.ok) {
+        const content = await response.json()
+        console.log(content)
+      } else console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
