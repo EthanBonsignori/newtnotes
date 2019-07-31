@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
 import { FloatingMenu, MainButton, ChildButton } from 'react-floating-button-menu'
-import MdAdd from '@material-ui/icons/add'
-import MdClose from '@material-ui/icons/clear'
-import MdPerson from '@material-ui/icons/person'
-import MdCreate from '@material-ui/icons/create'
+import MdAdd from '@material-ui/icons/Add'
+import MdClose from '@material-ui/icons/Clear'
+import MdPerson from '@material-ui/icons/Person'
+import MdCreate from '@material-ui/icons/Create'
 
 class PlusButton extends Component {
   constructor (props) {
