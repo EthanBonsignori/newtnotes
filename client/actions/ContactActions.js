@@ -14,6 +14,12 @@ export function contactTagLetters (letters) {
   })
 }
 
+export function contactTagPosted () {
+  dispatcher.dispatch({
+    type: 'CONTACT_TAG_POSTED'
+  })
+}
+
 export function contactModalOpen (contact) {
   dispatcher.dispatch({
     type: 'CONTACT_MODAL_OPEN',

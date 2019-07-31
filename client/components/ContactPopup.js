@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import contactStore from '../stores/contactStore'
+import * as actions from '../actions/contactActions.js'
 
 class ContactPopup extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      contacts: contactStore.getContacts(),
-      letters: contactStore.getLetters()
+      contacts: [],
+      letters: ''
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -15,15 +16,15 @@ class ContactPopup extends Component {
 
   componentDidMount () {
     contactStore.on('contact_change', () => {
-      this.setState({
-        contacts: contactStore.getContacts()
-      })
+      const contacts = contactStore.getContacts()
+      if (contacts === []) this.setState({ contacts: [] })
+      else this.setState({ contacts })
     })
 
     contactStore.on('letters_change', () => {
-      this.setState({
-        letters: contactStore.getLetters()
-      })
+      const letters = contactStore.getLetters()
+      if (letters === '') this.setState({ letters: '' })
+      else this.setState({ letters })
     })
   }
 
@@ -32,6 +33,11 @@ class ContactPopup extends Component {
     this.props.quill.deleteText(newIndex, this.state.letters.length)
     this.props.quill.insertText(newIndex, name)
     this.props.quill.setSelection(newIndex + name.length)
+    actions.contactTagPosted()
+    this.setState({
+      contacts: [],
+      letters: ''
+    })
   }
 
   render () {
