@@ -9,7 +9,8 @@ const journalSchema = new Schema({
   title: String,
   createdAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
+    unique: true
   },
   updatedAt: {
     type: Date

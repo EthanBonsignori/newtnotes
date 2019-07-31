@@ -18,6 +18,7 @@ const journal = {
     const contactLinks = await findContactLinks(req.body.journal)
     const newJournal = new Journal({
       journal: req.body.journal,
+      title: req.body.title,
       contactLinks
     })
     try {
