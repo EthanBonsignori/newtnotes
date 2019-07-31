@@ -188,7 +188,6 @@ class Contacts extends Component {
                     {this.state.contact.journalLinks.length
                       ? <ul style={{ listStyle: 'none' }}>
                         {this.state.contact.journalLinks.map(journal => {
-                          console.log(journal)
                           return (<li>{journal.title}</li>)
                         })}
                       </ul>
