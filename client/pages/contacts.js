@@ -186,10 +186,12 @@ class Contacts extends Component {
                   <section className='section-border mb-2 mt-3'>
                     <span className='section-title lead'>Journal Links</span>
                     {this.state.contact.journalLinks.length
-                      ? <div>{this.state.contact.journalLinks.map(journal => (
-                        <span>each journal</span>
-                      ))}
-                      </div>
+                      ? <ul style={{ listStyle: 'none' }}>
+                        {this.state.contact.journalLinks.map(journal => {
+                          console.log(journal)
+                          return (<li>{journal.title}</li>)
+                        })}
+                      </ul>
                       : <div className='text-center'>
                         <Button variant='primary' onClick={() => Router.push('/newjournal')}>
                           <MdCreate /> Create Journal
