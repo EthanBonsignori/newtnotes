@@ -23,6 +23,7 @@ export const modules = {
             const change = delta.ops[1] || delta.ops[0]
             if ('insert' in change) {
               if (change.insert === ' ') return this.quill.off('text-change')
+              if (change.insert.length > 1) return this.quill.off('text-change')
               query = query + change.insert
               actions.contactTagLetters(query)
               const contacts = await API.getContactsByQuery(query)
