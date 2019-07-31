@@ -6,7 +6,7 @@ const authRoutes = require('./routes/auth.routes')
 const app = express()
 
 // Middleware
-app.use(logger('dev'))
+if (process.env.NODE_ENV === 'development') app.use(logger('dev'))
 app.use(express.json())
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
