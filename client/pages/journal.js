@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
-import MdCreate from '@material-ui/icons/create'
+import MdCreate from '@material-ui/icons/Create'
 import Layout from '../components/Layout'
 import API from '../utils/API'
 
