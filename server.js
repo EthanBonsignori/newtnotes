@@ -1,12 +1,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const logger = require('morgan')
 const apiRoutes = require('./routes/api.routes')
 const authRoutes = require('./routes/auth.routes')
 const app = express()
 
 // Middleware
-if (process.env.NODE_ENV === 'development') app.use(logger('dev'))
+if (process.env.NODE_ENV === 'development') {
+  const logger = require('morgan')
+  app.use(logger('dev'))
+}
+
 app.use(express.json())
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
