@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MdSave from '@material-ui/icons/Save'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
 import API from '../utils/API'
 import ContactPopup from './ContactPopup'
 import { modules, formats } from '../config/quillConfig'
@@ -89,24 +90,19 @@ class JournalEditor extends Component {
             formats={formats}
             value={this.state.journal}
             onChange={this.handleChangeEditor}
-          >
-            {/* <div
-            className='journal-editor' /> */}
-          </ReactQuill> : ''}
+          /> : ''}
           <Row className='align-items-center'>
-            {/* <div className='bottom-bar'> */}
-            <Col sm={11} xs={11}>
+            <Col sm={11} xs={11} className='pr-0'>
               <ContactPopup
                 quill={this.quill}
                 index={this.state.index}
               />
             </Col>
             <Col sm={1} xs={1} className='pl-0 align-self-center'>
-              <button className='save-journal' onClick={this.handleSubmit}>
-                <MdSave /> Save
-              </button>
+              <Button variant='outline-secondary' style={{ padding: '0 1rem' }} onClick={this.handleSubmit}>
+                <span><MdSave /> Save</span>
+              </Button>
             </Col>
-            {/* </div> */}
           </Row>
         </div>
         <style jsx>{`
@@ -134,14 +130,6 @@ class JournalEditor extends Component {
           .popup-placeholder {
             display: inline;
             height: 5vh;
-          }
-          .save-journal {
-            float: right;
-            display: inline;
-            height: 5vh;
-            color: #444;
-            background: none;
-            border: none;
           }
         `}</style>
       </>
