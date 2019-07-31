@@ -1,5 +1,4 @@
 const express = require('express')
-const session = require('express-session')
 const mongoose = require('mongoose')
 const logger = require('morgan')
 const apiRoutes = require('./routes/api.routes')
@@ -25,7 +24,8 @@ app.use(passport.session())
 app.use('/api', apiRoutes)
 app.use('/auth', authRoutes)
 
-mongoose.connect('mongodb://localhost/newtnotesDB', {
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/newtnotesDB'
+mongoose.connect(MONGODB_URI, {
   useCreateIndex: true,
   useNewUrlParser: true
 }, () => {
