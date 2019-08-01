@@ -5,6 +5,8 @@ import moment from 'moment'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from 'react-bootstrap/DropdownButton'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Modal from 'react-bootstrap/Modal'
@@ -15,6 +17,7 @@ import MdEmail from '@material-ui/icons/Email'
 import MdPhone from '@material-ui/icons/Phone'
 import MdHome from '@material-ui/icons/Home'
 import MdWork from '@material-ui/icons/Work'
+import MdDelete from '@material-ui/icons/Delete'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import Layout from '../components/Layout'
@@ -37,6 +40,8 @@ class Contacts extends Component {
     this.handleChangeSearch = this.handleChangeSearch.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
     this.editContact = this.editContact.bind(this)
+    this.editJournal = this.editJournal.bind(this)
+    this.deleteContact = this.deleteContact.bind(this)
   }
 
   async componentDidMount () {
@@ -49,6 +54,9 @@ class Contacts extends Component {
   }
 
   async toggleModal (contact) {
+    if (!contact) {
+      return this.setState({ modal: false })
+    }
     this.setState(prevState => ({
       modal: !prevState.modal,
       contact
@@ -58,6 +66,25 @@ class Contacts extends Component {
 
   editContact () {
     Router.push('/newcontact')
+  }
+
+  editJournal (id) {
+    Router.push({ pathname: '/newjournal', query: { id } })
+  }
+
+  async deleteContact (id) {
+    const res = await API.deleteContact(id)
+    if (res) {
+      const newContacts = [...this.state.contacts].filter((value, index, arr) => {
+        return value._id !== res.id
+      })
+
+      this.toggleModal()
+      return this.setState({ contacts: newContacts })
+    }
+    // TODO: Display error on error
+    console.error('Unable to delete contact')
+    this.setState({ error: 'Unable to delete contact' })
   }
 
   daysUntilBirthday (date) {
@@ -72,12 +99,12 @@ class Contacts extends Component {
   }
 
   render () {
-    let currentLetter = ''
+    const { contacts } = this.state
+
+    let currentLetter
     let contactNames = []
     const contactsView = []
-    const contacts = this.state.contacts
-    for (const i in contacts) {
-      const contact = contacts[i]
+    for (const contact of contacts) {
       contactNames.push(contact.name)
       if (contact.name.toLowerCase().includes(this.state.search)) {
         const letter = contact.name[0].toUpperCase()
@@ -91,23 +118,35 @@ class Contacts extends Component {
     contactNames = contactNames.join(' ')
     return (
       <Layout title='Newtnotes | Contacts'>
-        {this.state.contacts.length
-          ? <div>
-            <InputGroup className='mb-3'>
-              <InputGroup.Prepend>
-                <InputGroup.Text id='inputGroup-sizing-default'>
-                  <MdSearch />
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                type='text'
-                placeholder='Search Contacts...'
-                value={this.state.MdSearch}
-                onChange={this.handleChangeSearch}
-              />
-            </InputGroup>
+        {contacts && contacts.length
+          ? <>
+            <Row noGutters>
+              <Col sm={10}>
+                <InputGroup className='mb-3'>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>
+                      <MdSearch />
+                    </InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <FormControl
+                    type='text'
+                    placeholder='Search Contacts...'
+                    value={this.state.search}
+                    onChange={this.handleChangeSearch}
+                  />
+                </InputGroup>
+              </Col>
+              <Col sm={2}>
+                <Link href='/newcontact'>
+                  <Button variant='dark' className='float-right'>
+                    <MdPerson /> Create Contact
+                  </Button>
+                </Link>
+              </Col>
+            </Row>
+
             { contactsView }
-          </div>
+          </>
           : <div className='text-center mt-5'>
             <p className='display-3'>Uh oh! No contacts found.</p>
             <p className='lead' style={{ fontSize: '3rem' }}>Try creating one below.</p>
@@ -126,6 +165,18 @@ class Contacts extends Component {
             centered
           >
             <Modal.Header closeButton>
+              <DropdownButton
+                drop='right'
+                variant='danger'
+                size='sm'
+                title={<MdDelete />}
+                id='dropdown-delete'
+              >
+                <Dropdown.Header>Confirm Deletion</Dropdown.Header>
+                <Dropdown.Divider />
+                <Dropdown.Item eventKey='1' onClick={() => this.deleteContact(this.state.contact._id)}>Delete Contact</Dropdown.Item>
+                <Dropdown.Item eventKey='2'>Cancel</Dropdown.Item>
+              </DropdownButton>
             </Modal.Header>
             <Modal.Body>
               <div className='center-flex'>
@@ -186,11 +237,16 @@ class Contacts extends Component {
                   <section className='section-border mb-2 mt-3'>
                     <span className='section-title lead'>Journal Links</span>
                     {this.state.contact.journalLinks.length
-                      ? <ul style={{ listStyle: 'none' }}>
-                        {this.state.contact.journalLinks.map(journal => {
-                          return (<li>{journal.title}</li>)
-                        })}
-                      </ul>
+                      ? <Row>
+                        {this.state.contact.journalLinks.map(journal => (
+                          <Col style={{ marginTop: '1rem' }} xs={{ span: 10, offset: 1 }} key={journal._id} onClick={() => this.editJournal(journal._id)}>
+                            <div className='journal-link'>
+                              <span className='lead'>{journal.title}</span>
+                              <span className='float-right'>Updated {moment.utc(journal.updatedAt).fromNow()}</span>
+                            </div>
+                          </Col>
+                        ))}
+                      </Row>
                       : <div className='text-center'>
                         <Button variant='primary' onClick={() => Router.push('/newjournal')}>
                           <MdCreate /> Create Journal
@@ -248,6 +304,19 @@ class Contacts extends Component {
           }
           .name {
             font-size: 2rem;
+          }
+          .journal-link {
+            color: #fff;
+            background-color: #444;
+            padding: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+          }
+          .journal-link:hover {
+            background-color: #333;
+          }
+          .journal-link:active {
+            background-color: #222;
           }
         `}</style>
       </Layout>
