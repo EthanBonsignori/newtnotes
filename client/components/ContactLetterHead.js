@@ -1,14 +1,11 @@
-import React, { Component } from 'react'
-
-class ContactLetterHead extends Component {
-  render () {
-    return (
-      <div key={this.props.letter}>
-        <p className='lead'>
-          <b>{this.props.letter}</b>
-        </p>
-        <hr />
-        <style jsx>{`
+const ContactLetterHead = (props) => {
+  return (
+    <div key={props.letter}>
+      <p className='lead'>
+        <b>{props.letter}</b>
+      </p>
+      <hr />
+      <style jsx>{`
           p {
             margin: 0;
           }
@@ -16,9 +13,8 @@ class ContactLetterHead extends Component {
             margin-top: 0;
           }
         `}</style>
-      </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default ContactLetterHead
