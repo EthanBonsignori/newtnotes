@@ -1,3 +1,24 @@
+.column {
+  height: 65vh;
+  text-align: center;
+  padding: 5rem;
+}
+.divider-parent {
+  position: relative;
+}
+
+.divider {
+  position: absolute;
+  width: 1px;
+  height: 55vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: #000;
+}
+
 .ql-container {
   height: 65vh !important;
 }
@@ -38,4 +59,14 @@ img.contact-pic {
   color: #6C757D;
   background-color: #fff;
   padding: 0 15px;
+}
+.navbar-link {
+  color: #fff;
+  margin: 0 10px;
+}
+.navbar-link:hover {
+  color: rgb(207, 207, 207);
+}
+.navbar-link:active {
+  color: rgb(167, 167, 167);
 }
