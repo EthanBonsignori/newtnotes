@@ -8,7 +8,7 @@ class MyNavbar extends Component {
     return (
       <>
         <Navbar bg='dark' variant='dark'>
-          <Navbar.Brand href=''>
+          <Navbar.Brand href='/'>
             <img
               alt=''
               src='/static/favicon.ico'
@@ -21,12 +21,12 @@ class MyNavbar extends Component {
           <Nav>
             <Nav.Item>
               <Link href='/journal' passHref>
-                <Nav.Link>Journal</Nav.Link>
+                <Nav.Link><span className='navbar-link'>Journal</span></Nav.Link>
               </Link>
             </Nav.Item>
             <Nav.Item>
               <Link href='/contacts' passHref>
-                <Nav.Link>Contacts</Nav.Link>
+                <Nav.Link><span className='navbar-link'>Contacts</span></Nav.Link>
               </Link>
             </Nav.Item>
           </Nav>
