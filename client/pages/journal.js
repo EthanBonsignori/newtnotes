@@ -82,7 +82,7 @@ class Journal extends Component {
     }
 
     return (
-      <Layout title='Newtnotes | Journal'>
+      <Layout title='Newtnotes | Journal' floatingButton>
         {journals && journals.length
           ? <>
             <Row noGutters>

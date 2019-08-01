@@ -117,7 +117,7 @@ class Contacts extends Component {
     }
     contactNames = contactNames.join(' ')
     return (
-      <Layout title='Newtnotes | Contacts'>
+      <Layout title='Newtnotes | Contacts' floatingButton>
         {contacts && contacts.length
           ? <>
             <Row noGutters>
