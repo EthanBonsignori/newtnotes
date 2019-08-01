@@ -25,7 +25,22 @@ const contactSchema = new Schema({
   relationship: String,
   birthday: Date,
   notes: String,
-  journalLinks: [{ type: Schema.Types.ObjectId, ref: 'journal' }]
+  journalLinks: [{ type: Schema.Types.ObjectId, ref: 'journal' }],
+
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+    unique: true
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now()
+  }
+})
+
+contactSchema.pre('save', (next) => {
+  this.updatedAt = Date.now()
+  next()
 })
 
 const Contact = mongoose.model('Contact', contactSchema)
