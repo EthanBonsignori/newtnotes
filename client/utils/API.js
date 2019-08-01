@@ -149,7 +149,7 @@ const API = {
         body: JSON.stringify(contact)
       })
       if (response.ok) {
-        const content = await response.json()
+        // const content = await response.json()
         return true
       } else console.log(response)
     } catch (error) {
@@ -170,7 +170,7 @@ const API = {
         body: JSON.stringify(contact)
       })
       if (response.ok) {
-        const content = await response.json()
+        // const content = await response.json()
         return true
       } else console.log(response)
     } catch (error) {
