@@ -3,9 +3,11 @@ import MdSave from '@material-ui/icons/Save'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 import API from '../utils/API'
 import ContactPopup from './ContactPopup'
 import { modules, formats } from '../config/quillConfig'
+import { DEFAULT_JOURNAL_TITLE } from '../config'
 
 let ReactQuill = null
 class JournalEditor extends Component {
@@ -13,10 +15,13 @@ class JournalEditor extends Component {
     super(props)
 
     this.state = {
+      id: undefined, // when id is present we are editing
       journal: '',
-      title: '',
+      title: undefined,
       loaded: false,
-      index: undefined
+      index: undefined,
+      submitting: false,
+      error: undefined
     }
 
     this.handleChangeEditor = this.handleChangeEditor.bind(this)
@@ -29,6 +34,7 @@ class JournalEditor extends Component {
   }
 
   handleChangeEditor (value) {
+    if (!this.quill) return null
     const journal = value
     let index
     const selection = this.quill.getSelection()
@@ -43,8 +49,27 @@ class JournalEditor extends Component {
 
   async handleSubmit (event) {
     event.preventDefault()
-    const journal = JSON.stringify(this.state)
-    API.postJournal(journal)
+    this.setState({ submitting: true })
+
+    let res
+    if (!this.state.id) {
+      res = await API.postJournal(this.state.journal, this.state.title || DEFAULT_JOURNAL_TITLE)
+    } else {
+      res = await API.putJournal(this.state.id, this.state.journal, this.state.title || DEFAULT_JOURNAL_TITLE)
+    }
+
+    let error
+    let id = this.state.id
+    if (res && res.journal) {
+      id = res.journal._id
+    } else {
+      error = 'Unable to save journal entry'
+    }
+    this.setState({
+      id,
+      submitting: false,
+      error
+    })
   }
 
   attachQuillRefs () {
@@ -59,6 +84,14 @@ class JournalEditor extends Component {
         loaded: true
       }, () => {
         this.attachQuillRefs()
+      })
+    }
+
+    if (this.props && this.props.journal) {
+      this.setState({
+        id: this.props.id,
+        journal: this.props.journal,
+        title: this.props.title
       })
     }
   }
@@ -99,9 +132,9 @@ class JournalEditor extends Component {
               />
             </Col>
             <Col sm={1} xs={1} className='pl-0 align-self-center'>
-              <Button variant='outline-secondary' style={{ padding: '0 1rem' }} onClick={this.handleSubmit}>
+              {!this.state.submitting ? <Button variant='outline-secondary' style={{ padding: '0 1rem' }} onClick={this.handleSubmit}>
                 <span><MdSave /> Save</span>
-              </Button>
+              </Button> : <div className='text-center'><Spinner animation='border' /></div>}
             </Col>
           </Row>
         </div>
