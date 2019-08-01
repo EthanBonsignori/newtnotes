@@ -54,7 +54,7 @@ class ContactInput extends Component {
       work: '',
       relationship: '',
       birthday: undefined,
-      notes: ''
+      notes: '',
     }
 
     this.state = this.initalState
@@ -104,11 +104,12 @@ class ContactInput extends Component {
       return this.setState({ imageUrlInput: this.state.imageUrlPlaceholder })
     }
     if (isImageUrl(this.state.imageUrlInput)) {
-      this.setState({
+      return this.setState({
         invalidImageUrl: false,
         imageUrl: this.state.imageUrlInput
       })
-    } else this.setState({ invalidImageUrl: true })
+    } 
+    return this.setState({ invalidImageUrl: true })
   }
 
   createFullName = () => {
@@ -164,16 +165,33 @@ class ContactInput extends Component {
       birthday,
       notes
     }
-    if (this.state._id) API.putContact(contact)
+    if (this.state._id) {
+      const res = API.putContact(contact)
+      if (res) {
+        Router.push('/contacts')  
+      } else {
+        // TODO: Display error on error
+        console.error('Unable to create contact')
+        this.setState({ error: 'Unable to create contact' })
+      }
+    }
     else {
       delete contact._id
-      API.postContact(contact)
+      this.postContact(contact)
     }
     this.setState(() => this.initalState)
     this.setState({ imageUrl: 'https://i.imgur.com/U2lpZIk.jpg' })
-    Router.push('/contacts')
   }
 
+  postContact = async (contact) => {
+    const res = await API.postContact(contact);
+    if (res) {
+      Router.push('/contacts')  
+    } else {
+      this.setState({ error: 'Unable to create contact' })
+    }
+  }
+  
   render () {
     return (
       <Form onSubmit={this.handleSubmit}>
