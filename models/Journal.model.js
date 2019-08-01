@@ -7,15 +7,22 @@ const journalSchema = new Schema({
     required: true
   },
   title: String,
+  contactLinks: [{ type: Schema.Types.ObjectId, ref: 'Contact' }],
+
   createdAt: {
     type: Date,
     default: Date.now(),
     unique: true
   },
   updatedAt: {
-    type: Date
-  },
-  contactLinks: [{ type: Schema.Types.ObjectId, ref: 'contact' }]
+    type: Date,
+    default: Date.now()
+  }
+})
+
+journalSchema.pre('save', (next) => {
+  this.updatedAt = Date.now()
+  next()
 })
 
 const Journal = mongoose.model('journal', journalSchema)
