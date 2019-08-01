@@ -32,7 +32,7 @@ class Layout extends Component {
             {this.props.children}
           </div>
         </Container>
-        <PlusButton />
+        {this.props.floatingButton ? <PlusButton /> : null}
       </>
     )
   }
