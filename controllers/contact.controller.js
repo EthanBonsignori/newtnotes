@@ -65,6 +65,18 @@ const contact = {
     } catch (err) {
       console.log(err)
     }
+  },
+
+  delete: async (req, res) => {
+    const id = req.params.id
+    try {
+      Contact.deleteOne({ _id: id }, (err, contact) => {
+        if (err) return console.log(err)
+        res.status(200).json({ id })
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
