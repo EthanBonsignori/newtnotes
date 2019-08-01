@@ -2,19 +2,21 @@ import React, { Component } from 'react'
 import Head from 'next/head'
 import Container from 'react-bootstrap/Container'
 import MyNavbar from './MyNavbar'
-import PlusButton from '../components/PlusButton'
-import API from '../utils/API'
-import * as actions from '../actions/userActions'
+import PlusButton from './PlusButton'
+
+// TODO: Auth!
+// import API from '../utils/API'
+// import * as actions from '../actions/userActions'
 
 class Layout extends Component {
   async componentDidMount () {
-    const user = await API.getUser()
+    // const user = await API.getUser()
     // console.log(user)
   }
 
   render () {
     return (
-      <div>
+      <>
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta charSet='utf-8' />
@@ -31,7 +33,7 @@ class Layout extends Component {
           </div>
         </Container>
         <PlusButton />
-      </div>
+      </>
     )
   }
 }
